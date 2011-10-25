@@ -1,9 +1,6 @@
 #!/usr/bin/env ruby
 #
-# = Jadify:: Parse HTML documents and insert Haml or Jade templates
-
-require 'rubygems'
-require 'hpricot'
+# = Jadify:: Down and dirty Jade template includes
 
 f = ARGV[0]
 if FileTest.exist?(f)
