@@ -6,7 +6,6 @@ require 'rubygems'
 require 'hpricot'
 
 f = ARGV[0]
-
 if FileTest.exist?(f)
 	html_raw = File.read(f)
 	line_split = html_raw.split("\n")
@@ -19,18 +18,19 @@ if FileTest.exist?(f)
 			m = line.match /\<!--\ ?\@(\w+)\ (.+)\ ?--\>/
 
 			if m.length == 3
-				processor = m[1].trim
-				file = m[2].trim
+				processor = m[1].strip
+				file = m[2].strip
+				fname = File.join(File.dirname(f), "#{file}.#{processor}")
 
-				if FileTest.exist?(file)
-					tmpl = File.read(file)
+				if FileTest.exist?(fname)
+					tmpl = File.read(fname)
 
 					%x{which #{processor}}
 
-					if $?.existatus == 0
-						output = `#{processor} #{file}`
+					if $?.exitstatus == 0
+						output = `cat #{fname} | #{processor}`
 
-						output_lines.insert(curr_line, output)
+						output_lines.insert(curr_line + 1, output)
 					else
 						puts "Cannot find processor #{processor} in your $PATH"
 						exit 2
@@ -42,4 +42,6 @@ if FileTest.exist?(f)
 			end
 		end
 	end
+
+	puts output_lines.join("\n")
 end
