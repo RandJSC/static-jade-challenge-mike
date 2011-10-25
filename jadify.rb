@@ -11,7 +11,9 @@ if FileTest.exist?(f)
 	line_split.each do |line|
 		curr_line = line_split.index(line)
 
+		# pre-match for a comment
 		if line =~ /<!--/
+			# See if comment is an include
 			m = line.match /\<!--\ ?\@(\w+)\ (.+)\ ?--\>/
 
 			if m.length == 3
