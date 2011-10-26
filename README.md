@@ -9,3 +9,5 @@ After talking about how this would work, we challenged one another to research a
 ## How It Works
 
 Jadify takes HTML with comments like `<!-- @jade fileName -->`, finds the filename they refer to, compiles that file, and inserts it as HTML below the comment.
+
+It can also theoretically work with any other template processor that operates via pipe. I haven't tested it with any, but if you used a comment like `<!-- @haml fileName -->`, it would try piping `fileName.haml` through the `haml` executable.
